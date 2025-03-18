@@ -1,213 +1,8 @@
 "use client";
 
 import React from "react";
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Container,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
-import { styled } from '@mui/material/styles';
-import { motion, HTMLMotionProps, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { clientData } from "@/data/clientData";
-
-// Type definitions
-type MotionBoxProps = HTMLMotionProps<"div"> & {
-  children?: React.ReactNode;
-};
-
-type MotionCardProps = HTMLMotionProps<"div"> & {
-  children: React.ReactNode;
-};
-
-// Motion components
-const MotionBox = motion(Box);
-
-// Theme Constants
-const THEME = {
-  colors: {
-    primary: '#2C3E50',
-    accent: '#FF4081',
-    text: '#4a4a4a',
-    background: '#ffffff',
-    success: '#4CAF50',
-    secondary: '#757575',
-  },
-  transitions: {
-    default: 'all 0.3s ease',
-  },
-};
-
-// Styled Components with improved responsiveness
-const StyledContainer = styled(Container)(({ theme }) => ({
-  padding: theme.spacing(10, 4),
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(6, 3),
-  },
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(4, 2),
-  },
-}));
-
-const PageTitle = styled(Typography)(({ theme }) => ({
-  fontSize: 'clamp(2rem, 5vw, 2.8rem)',
-  fontWeight: 700,
-  color: THEME.colors.primary,
-  marginBottom: theme.spacing(6),
-  textAlign: 'center',
-  position: 'relative',
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    bottom: '-10px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: 'clamp(40px, 5vw, 60px)',
-    height: '4px',
-    backgroundColor: THEME.colors.accent,
-    borderRadius: '2px',
-  },
-}));
-
-const ResultCard = styled(Box)(({ theme }) => ({
-  backgroundColor: THEME.colors.background,
-  borderRadius: theme.spacing(2),
-  padding: theme.spacing(4),
-  marginBottom: theme.spacing(6),
-  boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-  transition: THEME.transitions.default,
-  '&:hover': {
-    transform: 'translateY(-5px)',
-    boxShadow: '0 15px 40px rgba(0,0,0,0.1)',
-  },
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(3),
-  },
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-  },
-}));
-
-const ImageWrapper = styled(Box)(({ theme }) => ({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-}));
-
-const ImageCard = styled(Card)(({ theme }) => ({
-  borderRadius: theme.spacing(2),
-  overflow: 'hidden',
-  boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
-  height: '100%',
-  transition: THEME.transitions.default,
-  display: 'flex',
-  flexDirection: 'column',
-}));
-
-const MotionImageCard = motion(ImageCard);
-
-const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
-  flexGrow: 1,
-  height: 0,
-  paddingTop: '75%', // Maintains aspect ratio at the top
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-}));
-
-const ClientInfo = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(3),
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(2, 1),
-  },
-}));
-
-const ClientName = styled(Typography)(({ theme }) => ({
-  fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
-  fontWeight: 700,
-  color: THEME.colors.primary,
-  marginBottom: theme.spacing(2),
-}));
-
-const ResultStat = styled(Typography)(({ theme }) => ({
-  fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-  color: THEME.colors.success,
-  fontWeight: 600,
-  marginBottom: theme.spacing(2),
-}));
-
-const SuccessKey = styled(Typography)(({ theme }) => ({
-  fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
-  color: THEME.colors.text,
-  fontStyle: 'italic',
-  lineHeight: 1.6,
-  marginBottom: theme.spacing(2),
-}));
-
-const Testimonial = styled(Typography)(({ theme }) => ({
-  fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
-  color: THEME.colors.secondary,
-  fontStyle: 'italic',
-  marginBottom: theme.spacing(2),
-  padding: theme.spacing(2),
-  borderLeft: `4px solid ${THEME.colors.accent}`,
-  backgroundColor: 'rgba(255,64,129,0.05)',
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(1.5),
-  },
-}));
-
-const Duration = styled(Typography)(({ theme }) => ({
-  fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
-  color: THEME.colors.secondary,
-  marginBottom: theme.spacing(2),
-}));
-
-const ImageLabel = styled(Typography)(({ theme }) => ({
-  textAlign: 'center',
-  fontWeight: 500,
-  color: THEME.colors.primary,
-  padding: theme.spacing(1),
-  fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
-  backgroundColor: 'rgba(255,255,255,0.9)',
-  marginBottom: 0,
-}));
-
-const AchievementsList = styled(List)(({ theme }) => ({
-  backgroundColor: 'rgba(76,175,80,0.05)',
-  borderRadius: theme.spacing(1),
-  padding: theme.spacing(2),
-  marginTop: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(1.5),
-  },
-}));
-
-const AchievementTitle = styled(Typography)(({ theme }) => ({
-  fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-  fontWeight: 600,
-  marginBottom: theme.spacing(1),
-}));
-
-const AchievementItem = styled(ListItem)(({ theme }) => ({
-  padding: theme.spacing(0.5, 0),
-}));
-
-const AchievementText = styled(ListItemText)(({ theme }) => ({
-  margin: 0,
-  '& .MuiListItemText-primary': {
-    fontSize: 'clamp(0.875rem, 1.5vw, 1rem)',
-  },
-}));
 
 // Animation variants
 const containerVariants = {
@@ -231,16 +26,18 @@ const itemVariants = {
   },
 };
 
-const Results: React.FC = () => {
+const Results = () => {
   return (
-    <StyledContainer maxWidth="lg">
+    <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
       <AnimatePresence>
-        <MotionBox
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <PageTitle>Transformation Stories</PageTitle>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 text-center mb-12 md:mb-16 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2 after:w-12 md:after:w-16 after:h-1 after:bg-pink-500 after:rounded-full">
+            Transformation Stories
+          </h2>
 
           {clientData.map(({ 
             id, 
@@ -252,80 +49,72 @@ const Results: React.FC = () => {
             duration, 
             achievements 
           }) => (
-            <MotionBox
+            <motion.div
               key={id}
               variants={itemVariants}
+              className="bg-white rounded-2xl shadow-lg p-4 md:p-8 lg:p-10 mb-8 md:mb-12 hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
             >
-              <ResultCard>
-                <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} sx={{ minHeight: { md: '400px' } }}>
-                  <Grid item xs={12} md={6}>
-                    <Grid container spacing={{ xs: 1, sm: 2 }} sx={{ height: '100%' }}>
-                      {images.map((imgSrc, idx) => (
-                        <Grid item xs={6} key={idx} sx={{ height: { xs: 'auto', md: '100%' } }}>
-                          <ImageWrapper>
-                            <MotionImageCard
-                              whileHover={{ scale: 1.05 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              <Box sx={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                                <StyledCardMedia
-                                  image={imgSrc}
-                                  title={`${name} ${idx === 0 ? 'Before' : 'After'}`}
-                                  sx={{ flexGrow: 1, height: 'auto', paddingTop: { xs: '100%', md: '0' }, minHeight: { md: '85%' } }}
-                                />
-                                <Box sx={{ 
-                                  position: { xs: 'relative', md: 'absolute' }, 
-                                  bottom: 0, 
-                                  width: '100%',
-                                  backgroundColor: 'rgba(255,255,255,0.9)',
-                                  zIndex: 2 
-                                }}>
-                                  <ImageLabel>
-                                    {idx === 0 ? 'Before' : 'After'}
-                                  </ImageLabel>
-                                </Box>
-                              </Box>
-                            </MotionImageCard>
-                          </ImageWrapper>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </Grid>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div className="grid grid-cols-2 gap-3 md:gap-4 h-full">
+                  {images.map((imgSrc, idx) => (
+                    <div key={idx} className="h-full">
+                      <motion.div
+                        whileHover={{ scale: 1.03 }}
+                        transition={{ duration: 0.3 }}
+                        className="h-full flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                      >
+                        <div className="relative flex-grow flex flex-col h-full">
+                          <div className="aspect-square md:aspect-[3/4] relative overflow-hidden">
+                            <img
+                              src={imgSrc}
+                              alt={`${name} ${idx === 0 ? 'Before' : 'After'}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="bg-white bg-opacity-90 py-2 text-center font-medium text-slate-800 text-sm md:text-base">
+                            {idx === 0 ? 'Before' : 'After'}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  ))}
+                </div>
 
-                  <Grid item xs={12} md={6}>
-                    <ClientInfo>
-                      <ClientName>{name}</ClientName>
-                      <ResultStat>{lostOrGained}</ResultStat>
-                      {duration && (
-                        <Duration>Duration: {duration}</Duration>
-                      )}
-                      <SuccessKey>
-                        <strong>Key to success:</strong> {keyToSuccess}
-                      </SuccessKey>
-                      {testimonial && (
-                        <Testimonial>"{testimonial}"</Testimonial>
-                      )}
-                      {achievements && achievements.length > 0 && (
-                        <AchievementsList>
-                          <AchievementTitle>
-                            Key Achievements:
-                          </AchievementTitle>
-                          {achievements.map((achievement, index) => (
-                            <AchievementItem key={index} disablePadding dense>
-                              <AchievementText primary={achievement} />
-                            </AchievementItem>
-                          ))}
-                        </AchievementsList>
-                      )}
-                    </ClientInfo>
-                  </Grid>
-                </Grid>
-              </ResultCard>
-            </MotionBox>
+                <div className="flex flex-col p-2 md:p-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-3">{name}</h3>
+                  <p className="text-lg md:text-xl font-semibold text-green-600 mb-3">{lostOrGained}</p>
+                  
+                  {duration && (
+                    <p className="text-sm md:text-base text-gray-600 mb-3">Duration: {duration}</p>
+                  )}
+                  
+                  <div className="text-sm md:text-base text-gray-700 italic mb-4">
+                    <span className="font-semibold not-italic">Key to success:</span> {keyToSuccess}
+                  </div>
+                  
+                  {testimonial && (
+                    <div className="text-sm md:text-base text-gray-600 italic mb-4 pl-3 md:pl-4 border-l-4 border-pink-500 bg-pink-50 bg-opacity-30 py-2 md:py-3 px-2 md:px-3">
+                      "{testimonial}"
+                    </div>
+                  )}
+                  
+                  {achievements && achievements.length > 0 && (
+                    <div className="bg-green-50 rounded-lg p-3 md:p-4 mt-2">
+                      <p className="text-base md:text-lg font-semibold mb-2">Key Achievements:</p>
+                      <ul className="space-y-1">
+                        {achievements.map((achievement, index) => (
+                          <li key={index} className="text-sm md:text-base text-gray-700">{achievement}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
           ))}
-        </MotionBox>
+        </motion.div>
       </AnimatePresence>
-    </StyledContainer>
+    </div>
   );
 };
 

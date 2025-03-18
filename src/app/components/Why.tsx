@@ -1,209 +1,98 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, Grid, Container } from "@mui/material";
-import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 
-const MotionBox = motion(Box);
-
-// Theme Constants
-const THEME = {
-  colors: {
-    primary: '#2C3E50',
-    accent: '#FF4081',
-    text: '#4a4a4a',
-    background: '#ffffff',
-    lightBg: '#f8fafc',
-  },
-  transitions: {
-    default: 'all 0.3s ease',
-  },
-};
-
-const StyledContainer = styled(Container)(({ theme }) => ({
-  padding: theme.spacing(8, 4),
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(4, 2),
-  },
-}));
-
-const SectionTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2.8rem',
-  fontWeight: 700,
-  color: THEME.colors.primary,
-  marginBottom: theme.spacing(2),
-  position: 'relative',
-  textAlign: 'center',
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    bottom: '-10px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '60px',
-    height: '4px',
-    backgroundColor: THEME.colors.accent,
-    borderRadius: '2px',
-  },
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '2.2rem',
-  },
-}));
-
-const SectionSubtitle = styled(Typography)(({ theme }) => ({
-  fontSize: '1.3rem',
-  lineHeight: 1.8,
-  color: THEME.colors.text,
-  textAlign: 'center',
-  maxWidth: '800px',
-  margin: '2rem auto 4rem',
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1.1rem',
-  },
-}));
-
-const ContentCard = styled(Box)(({ theme }) => ({
-  backgroundColor: THEME.colors.background,
-  borderRadius: theme.spacing(2),
-  padding: theme.spacing(4),
-  marginBottom: theme.spacing(4),
-  boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-  transition: THEME.transitions.default,
-  '&:hover': {
-    transform: 'translateY(-5px)',
-    boxShadow: '0 15px 40px rgba(0,0,0,0.1)',
-  },
-}));
-
-const CardTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2rem',
-  fontWeight: 600,
-  color: THEME.colors.primary,
-  marginBottom: theme.spacing(3),
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1.8rem',
-    textAlign: 'center',
-  },
-}));
-
-const CardText = styled(Typography)(({ theme }) => ({
-  fontSize: '1.1rem',
-  lineHeight: 1.8,
-  color: THEME.colors.text,
-  marginBottom: theme.spacing(2),
-  '&:last-child': {
-    marginBottom: 0,
-  },
-}));
-
-const ImageWrapper = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  overflow: 'hidden',
-  borderRadius: theme.spacing(2),
-  boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
-  transition: THEME.transitions.default,
-  '&:hover': {
-    transform: 'scale(1.02)',
-    boxShadow: '0 12px 35px rgba(0,0,0,0.15)',
-  },
-}));
-
-const StyledImage = styled('img')({
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
-  transition: 'transform 0.5s ease',
-});
-
-const Why: React.FC = () => {
+const Why = () => {
   return (
-    <StyledContainer maxWidth="lg">
-      <MotionBox
+    <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <SectionTitle>Why should you exercise?</SectionTitle>
-        <SectionSubtitle>
+        <h2 className="text-4xl md:text-5xl font-bold text-slate-800 text-center mb-6 relative after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2 after:w-16 after:h-1 after:bg-pink-500 after:rounded-full">
+          Why should you exercise?
+        </h2>
+        <p className="text-xl text-gray-700 text-center max-w-3xl mx-auto mt-8 mb-16 leading-relaxed">
           It has been proven over and over again that exercise extends your longevity, 
           improves health, and increases your performance in all areas of your life. 
           It helps you look better, feel better, and be better.
-        </SectionSubtitle>
+        </p>
 
         {['trainer', 'choose', 'now'].map((section, index) => (
-          <MotionBox
+          <motion.div
             key={section}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 * (index + 1) }}
+            className="bg-white rounded-2xl shadow-lg p-6 md:p-12 mb-10 hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
           >
-            <ContentCard>
-              <Grid container spacing={4} alignItems="center">
-                <Grid item xs={12} md={6}>
-                  <ImageWrapper>
-                    <StyledImage
-                      src={`./${section === 'trainer' ? 'image112' : section === 'choose' ? 'image113' : 'image2'}.png`}
-                      alt={`Why ${section}?`}
-                    />
-                  </ImageWrapper>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <CardTitle>
-                    {section === 'trainer' && "Why do you need a trainer?"}
-                    {section === 'choose' && "Why should you choose us?"}
-                    {section === 'now' && "Why now?"}
-                  </CardTitle>
-                  
-                  {section === 'trainer' && (
-                    <>
-                      <CardText textAlign={"justify"}>
-                        If Michael Jordan needs a personal trainer, why wouldn't you? 
-                        If the best of the best in their respective fields know that the only way 
-                        they can improve is through a good coach and a great personal trainer, 
-                        then we all could benefit from personal training.
-                      </CardText>
-                      <CardText textAlign={"justify"}>
-                        A good trainer coaches you on things that you aren't familiar with. 
-                        He/she will help you think outside the box to constantly push your limit 
-                        and grow. A good trainer will be right by your side to let you know that 
-                        you've fallen off track and what you need to do to get back on it.
-                      </CardText>
-                    </>
-                  )}
-                  
-                  {section === 'choose' && (
-                    <>
-                      <CardText>-Because we're good trainers. =)</CardText>
-                      <CardText>
-                        -We will find out where you are on the fitness spectrum and push you 
-                        toward your goal.
-                      </CardText>
-                      <CardText>
-                        -We will listen to your wishes and goals but ignore your whines and 
-                        complaints, because we know you want the results more than what's discomforting you.
-                      </CardText>
-                      <CardText>
-                        -We will push you during our workout, provide you with a routine to do in 
-                        between, and guide you on proper nutrition so you can be your best.
-                      </CardText>
-                    </>
-                  )}
-                  
-                  {section === 'now' && (
-                    <CardText textAlign={"justify"}>
-                      That's personal to you because only you know when the right time is to 
-                      take action. However, what time do we ever have other than now? 
-                      Just think, a year from now, you're going to wish you had started today.
-                    </CardText>
-                  )}
-                </Grid>
-              </Grid>
-            </ContentCard>
-          </MotionBox>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="order-last md:order-first">
+                <div className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500">
+                  <img 
+                    src={`./${section === 'trainer' ? 'image112' : section === 'choose' ? 'image113' : 'image2'}.png`}
+                    alt={`Why ${section}?`}
+                    className="w-full h-64 md:h-80 object-cover hover:scale-105 transition-all duration-500"
+                  />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-6 md:mb-8">
+                  {section === 'trainer' && "Why do you need a trainer?"}
+                  {section === 'choose' && "Why should you choose us?"}
+                  {section === 'now' && "Why now?"}
+                </h3>
+                
+                {section === 'trainer' && (
+                  <>
+                    <p className="text-gray-700 text-lg leading-relaxed text-justify mb-4">
+                      If Michael Jordan needs a personal trainer, why wouldn't you? 
+                      If the best of the best in their respective fields know that the only way 
+                      they can improve is through a good coach and a great personal trainer, 
+                      then we all could benefit from personal training.
+                    </p>
+                    <p className="text-gray-700 text-lg leading-relaxed text-justify">
+                      A good trainer coaches you on things that you aren't familiar with. 
+                      He/she will help you think outside the box to constantly push your limit 
+                      and grow. A good trainer will be right by your side to let you know that 
+                      you've fallen off track and what you need to do to get back on it.
+                    </p>
+                  </>
+                )}
+                
+                {section === 'choose' && (
+                  <div className="text-gray-700 text-lg leading-relaxed space-y-3">
+                    <p>-Because we're good trainers. =)</p>
+                    <p>
+                      -We will find out where you are on the fitness spectrum and push you 
+                      toward your goal.
+                    </p>
+                    <p>
+                      -We will listen to your wishes and goals but ignore your whines and 
+                      complaints, because we know you want the results more than what's discomforting you.
+                    </p>
+                    <p>
+                      -We will push you during our workout, provide you with a routine to do in 
+                      between, and guide you on proper nutrition so you can be your best.
+                    </p>
+                  </div>
+                )}
+                
+                {section === 'now' && (
+                  <p className="text-gray-700 text-lg leading-relaxed text-justify">
+                    That's personal to you because only you know when the right time is to 
+                    take action. However, what time do we ever have other than now? 
+                    Just think, a year from now, you're going to wish you had started today.
+                  </p>
+                )}
+              </div>
+            </div>
+          </motion.div>
         ))}
-      </MotionBox>
-    </StyledContainer>
+      </motion.div>
+    </div>
   );
 };
 
