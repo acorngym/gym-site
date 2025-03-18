@@ -39,7 +39,7 @@ const Home = () => {
                 style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('./background1.png')" }}>
               <div className="max-w-4xl mx-auto px-4 text-center">
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight animate-fade-in">
-                  Acorn Health & Fitness
+                  Acorn Health & Fitness 
                 </h1>
                 <p className="text-xl md:text-2xl mb-8 opacity-90">
                   Health, Fitness, Strength & Balance
